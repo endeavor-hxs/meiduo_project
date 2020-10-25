@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve( ).parent.parent
-
+# 定义apps子模块的路径,通过insert方式
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'contents',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            #配置jinja2的环境
             'environment': 'meiduo_mall.utils.jinja2_env.jinja2_environment',
         },
     },
@@ -100,7 +102,7 @@ DATABASES = {
         },
     }
 }
-
+#配置redis缓存
 CACHES = {
     "default": {  # 默认
         "BACKEND": "django_redis.cache.RedisCache",
@@ -157,7 +159,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # 配置静态文件加载路径
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+#配置日志文件
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,  # 是否禁用已经存在的日志器
