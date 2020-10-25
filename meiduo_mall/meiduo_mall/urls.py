@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # include中是一个元组，需要传入两个参数，一个是子应用的url路径，一个是子应用名
     path(r'', include(('users.urls', 'users'), namespace="users")),
-    path(r'', include(('contents.urls', 'contents'), namespace='contents'))
+    path(r'', include(('contents.urls', 'contents'), namespace='contents')),
+    path(r'', include('verifications.urls')),
 ]

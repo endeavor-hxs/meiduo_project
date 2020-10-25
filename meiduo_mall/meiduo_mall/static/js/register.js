@@ -10,18 +10,33 @@ let vm = new Vue({
         password2: '',
         mobile: '',
         allow: '',
+        image_code_url: '',
+        image_code: '',
         //v-show
         error_name: false,
         error_password: false,
         error_password2: false,
         error_mobile: false,
         error_allow: false,
+        error_image_code: '',
         //error_message
         error_name_message: '',
         error_mobile_message: '',
-
+        error_image_code_message: '',
+    },
+    mounted() {
+        // 生成图形验证码
+        this.generate_image_code();
     },
     methods: {   //定义事件方法
+
+        generate_image_code() {
+            //生成UUID，generateUUID()，封装在common.js
+            this.uuid = generateUUID();
+            //拼接图形验证码请求地址
+            this.image_code_url = '/image_codes/' + this.uuid + '/';
+        },
+
         // 校验用户名
         check_username() {
             let re = /^[a-zA-Z0-9_-]{5,20}$/;
@@ -94,6 +109,16 @@ let vm = new Vue({
                     })
             }
         },
+
+        check_image_code() {
+            if (!this.image_code) {
+                this.error_image_code_message = '请填写图片验证码';
+                this.error_image_code = true;
+            } else {
+                this.error_image_code = false;
+            }
+        },
+
         // 校验是否勾选协议
         check_allow() {
             if (this.allow) {
@@ -102,6 +127,7 @@ let vm = new Vue({
                 this.error_allow = true;
             }
         },
+
         // 监听表单提交事件
         on_submit() {
             this.check_username();
